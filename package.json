@@ -1,0 +1,15 @@
+{
+  "name": "the-peoples-assembly",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The People's Assembly (TPA) real-time governance simulation",
+  "main": "index.js",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "install:all": "npm --prefix client install --no-audit --no-fund && npm --prefix server install --no-audit --no-fund",
+    "build": "npm --prefix client run build && npm --prefix server run db:generate && npm --prefix server run build"
+  }
+}

@@ -12,11 +12,14 @@ build/
 .env.test.local
 .env.production.local
 
-# Databases (SQLite local files)
+# Databases (SQLite local files & backups)
 *.db
 *.db-journal
 *.db-shm
 *.db-wal
+*.backup
+*.bak
+backups/
 server/dev.db
 server/dev.db-shm
 server/dev.db-wal

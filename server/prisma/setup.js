@@ -27,8 +27,13 @@ try {
     process.env.DATABASE_URL = 'file:./dev.db';
   }
 
-  fs.writeFileSync(schemaPath, schemaContent, 'utf8');
-  console.log(`[Prisma Setup] Generated schema.prisma with '${provider}' provider successfully!`);
+  const existingContent = fs.existsSync(schemaPath) ? fs.readFileSync(schemaPath, 'utf8') : null;
+  if (existingContent === schemaContent) {
+    console.log(`[Prisma Setup] schema.prisma already matches '${provider}' provider.`);
+  } else {
+    fs.writeFileSync(schemaPath, schemaContent, 'utf8');
+    console.log(`[Prisma Setup] Generated schema.prisma with '${provider}' provider successfully!`);
+  }
 } catch (error) {
   console.error('[Prisma Setup] Error generating schema.prisma:', error);
   process.exit(1);

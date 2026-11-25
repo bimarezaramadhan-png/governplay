@@ -32,7 +32,7 @@ app.use('/api/v1/admin', adminRouter);
 app.get('/api/v1/health', (req, res) => {
   res.json({
     status: 'ok',
-    mode: process.env.OFFLINE_MODE === 'true' ? 'offline' : 'online',
+    mode: process.env.OFFLINE_MODE !== 'false' ? 'offline' : 'online',
   });
 });
 
@@ -186,7 +186,9 @@ app.use((req, res, next) => {
   res.sendFile(path.join(clientDistPath, 'index.html'));
 });
 
-const PORT = process.env.PORT || 3000;
-httpServer.listen(PORT, () => {
-  console.log(`[Server] Running in ${process.env.OFFLINE_MODE === 'true' ? 'OFFLINE' : 'ONLINE'} mode on port ${PORT}`);
+const PORT = Number(process.env.SERVER_PORT || process.env.PORT || 3000);
+const HOST = process.env.HOST || '0.0.0.0';
+httpServer.listen(PORT, HOST, () => {
+  const mode = process.env.OFFLINE_MODE !== 'false' ? 'OFFLINE' : 'ONLINE';
+  console.log(`[Server] Running in ${mode} mode on http://${HOST}:${PORT}`);
 });

@@ -1,11 +1,8 @@
 import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
-import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
-
-import Database from 'better-sqlite3';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,6 +12,7 @@ const offlineMode = process.env.OFFLINE_MODE !== 'false';
 let prisma: PrismaClient;
 
 if (offlineMode) {
+  const { PrismaBetterSqlite3 } = await import('@prisma/adapter-better-sqlite3');
   const tmpDir = path.resolve(__dirname, '../.tmp');
   if (!fs.existsSync(tmpDir)) {
     fs.mkdirSync(tmpDir, { recursive: true });
