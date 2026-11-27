@@ -1,0 +1,41 @@
+# Git & CI
+.git
+.gitignore
+.gitattributes
+.github
+
+# Dependencies (installed cleanly inside Linux container via npm ci)
+**/node_modules
+
+# Local build outputs (rebuilt cleanly inside container)
+client/dist
+server/dist
+
+# Local environment secrets & local SQLite databases
+**/.env
+**/.env.*
+server/dev.db
+server/dev.db-journal
+server/dev.db-shm
+server/dev.db-wal
+server/.tmp
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# Backups & archives
+backups/
+*.backup
+*.bak
+*.xlsx
+
+# Documentation & design reference files
+*.md
+colorpallete.png
+
+# Logs & OS metadata
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
